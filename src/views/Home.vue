@@ -79,14 +79,9 @@
 
 <script>
 import axios from "axios";
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: "Home",
-  // components: {
-  //   HelloWorld
-  // },
   data() {
     return {
       allCountries: [],
@@ -99,7 +94,6 @@ export default {
   created() {
     axios.get("https://restcountries.eu/rest/v2/all").then((res) => {
       this.allCountries = res.data;
-      // console.log(this.allCountries)
     });
   },
   methods: {
