@@ -1,6 +1,7 @@
 
 <template>
   <div class="home">
+    <vue-pull-refresh :on-refresh="onRefresh"></vue-pull-refresh>
     <!-- <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <div>
@@ -74,12 +75,13 @@
           </div>
       </b-row>
     </b-container>
+    
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
+import VuePullRefresh from 'vue-pull-refresh';
 export default {
   name: "Home",
   data() {
@@ -91,6 +93,9 @@ export default {
       type: "",
     };
   },
+  components: {
+        'vue-pull-refresh': VuePullRefresh
+    },
   created() {
     axios.get("https://restcountries.eu/rest/v2/all").then((res) => {
       this.allCountries = res.data;
@@ -155,6 +160,13 @@ export default {
           });
       }
     },
+    onRefresh: function() {
+            return new Promise(function (resolve) {
+                setTimeout(function () {
+                    resolve();
+                }, 1000);
+            });
+        }
   },
   watch: {
     name() {
