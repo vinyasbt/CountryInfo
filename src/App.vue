@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <!-- auto search
- design
- mobile view -->
     <router-view />
   </div>
 </template>

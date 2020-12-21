@@ -6,9 +6,8 @@
     <div>
       <b-navbar toggleable="lg" type="dark" variant="danger">
         <b-navbar-nav>
-          <b-navbar-brand href="#">RestCountries</b-navbar-brand>
+          <b-navbar-brand href="/">RestCountries</b-navbar-brand>
         </b-navbar-nav>
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
             <label>Search type</label>
@@ -20,17 +19,19 @@
               <option value="CALLINGCODE">CALLING CODE</option>
               <option value="REGION">REGION</option>
             </select>
+            
             <b-form-input
               size="sm"
               class="mr-sm-2"
               placeholder="Search"
               v-model="name"
             >
-              <!-- AutoSearch Pending -->
-              <!-- <div v-for="(country, index) in watcherCountries" :key="index">
-         {{country.name}}
-      </div> -->
             </b-form-input>
+            <ul class="list-group" v-if="type=='FULLNAME'">
+            <div v-for="(country, index) in watcherCountries" :key="index" >
+         <button type="button" class="list-group-item list-group-item-action" @click="searchName(country.name)">{{country.name}}</button>
+      </div>
+            </ul>
             <b-button size="sm" @click="searchName()">Search</b-button>
           </b-nav-form>
         </b-navbar-nav>
@@ -38,9 +39,8 @@
     </div>
     <b-container fluid>
       <b-row>
-        <b-col>
           <div v-if="particularCountry.length != 0">
-            <div
+            <b-col
               v-for="(country, index) in particularCountry"
               :key="index"
               class="box"
@@ -57,7 +57,7 @@
               <h5>currency:{{ country.currencies[0].name }}</h5>
               <h5>currency symbol:{{ country.currencies[0].symbol }}</h5>
               <h5>borders:{{ country.borders.join(",") }}</h5>
-            </div>
+            </b-col>
           </div>
           <div v-else>
             <h3>List of Countries</h3>
@@ -72,7 +72,6 @@
               </div>
             </div>
           </div>
-        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -152,24 +151,30 @@ export default {
             this.particularCountry = res.data;
             console.log(this.particularCountry);
           });
-      } else if (this.type == "FULLNAME") {
+      } else if (this.type == "FULLNAME" || value!=undefined) {
         axios
           .get(`https://restcountries.eu/rest/v2/name/${value}?fullText=true`)
           .then((res) => {
             this.particularCountry = res.data;
             console.log(this.particularCountry);
+            this.watcherCountries.length=0;
           });
       }
     },
   },
   watch: {
     name() {
+      if(this.name.length>0){
       axios
         .get(`https://restcountries.eu/rest/v2/name/${this.name}`)
         .then((res) => {
           this.watcherCountries = res.data;
           console.log(this.watcherCountries);
         });
+      }
+      else{
+        this.watcherCountries.length=0;
+      }
     },
   },
 };
