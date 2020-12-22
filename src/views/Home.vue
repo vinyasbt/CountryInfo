@@ -6,9 +6,12 @@
     <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <div>
       <b-navbar toggleable="lg" type="dark" variant="danger">
+         
         <b-navbar-nav>
           <b-navbar-brand href="/">RestCountries</b-navbar-brand>
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         </b-navbar-nav>
+         <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
             <label>Search type</label>
@@ -34,9 +37,11 @@
       </div>
             </ul>
             <b-button size="sm" @click="searchName()">Search</b-button>
-          </b-nav-form>
+          </b-nav-form> 
         </b-navbar-nav>
+         </b-collapse>
       </b-navbar>
+      
     </div>
     <b-container fluid>
       <b-row>
@@ -46,18 +51,18 @@
               :key="index"
               class="box"
             >
-              <h3>Name:{{ country.name }}</h3>
-              <h5>Region:{{ country.region }}</h5>
-              <h5>Capital:{{ country.capital }}</h5>
-              <h5>subregion:{{ country.subregion }}</h5>
-              <h5>population:{{ country.population }}</h5>
-              <h5>area:{{ country.area }}</h5>
-              <h5>nativeName:{{ country.nativeName }}</h5>
-              <h5>callingCodes:{{ country.callingCodes.join(",") }}</h5>
-              <h5>timezones:{{ country.timezones.join(",") }}</h5>
-              <h5>currency:{{ country.currencies[0].name }}</h5>
-              <h5>currency symbol:{{ country.currencies[0].symbol }}</h5>
-              <h5>borders:{{ country.borders.join(",") }}</h5>
+              <h3 class="h3-responsive">Name:{{ country.name }}</h3>
+              <h5 class="h5-responsive">Region:{{ country.region }}</h5>
+              <h5 class="h5-responsive">Capital:{{ country.capital }}</h5>
+              <h5 class="h5-responsive">subregion:{{ country.subregion }}</h5>
+              <h5 class="h5-responsive">population:{{ country.population }}</h5>
+              <h5 class="h5-responsive">area:{{ country.area }}</h5>
+              <h5 class="h5-responsive">nativeName:{{ country.nativeName }}</h5>
+              <h5 class="h5-responsive">callingCodes:{{ country.callingCodes.join(",") }}</h5>
+              <h5 class="h5-responsive">timezones:{{ country.timezones.join(",") }}</h5>
+              <h5 class="h5-responsive">currency:{{ country.currencies[0].name }}</h5>
+              <h5 class="h5-responsive">currency symbol:{{ country.currencies[0].symbol }}</h5>
+              <h5 class="h5-responsive">borders:{{ country.borders.join(",") }}</h5>
             </b-col>
           </div>
           <div v-else>
